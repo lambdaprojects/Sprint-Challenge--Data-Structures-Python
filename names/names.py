@@ -34,3 +34,34 @@ print (f"runtime: {end_time - start_time} seconds")
 # Python has built-in tools that allow for a very efficient approach to this problem
 # What's the best time you can accomplish?  Thare are no restrictions on techniques or data
 # structures, but you may not import any additional libraries that you did not write yourself.
+
+# I am going to try using binary search
+# Sort the first array and loop the second array to find the duplicate
+
+def binary_search(arr, target):
+
+    if len(arr) == 0:
+        return -1  # array empty
+
+    low = 0
+    high = len(arr)-1
+    while low <= high:
+        middle = (low + high) // 2
+        if arr[middle] == target:
+            return 1
+        elif arr[middle] > target:
+            high = middle - 1
+        else:
+            low = middle + 1
+    return -1
+
+duplicates = []
+start_time = time.time()
+names_1.sort()
+for name in names_2:
+    if binary_search(names_1, name ) == 1:
+        duplicates.append(name)
+end_time = time.time()
+
+print (f"{len(duplicates)} duplicates:\n\n{', '.join(duplicates)}\n\n")
+print (f"runtime: {end_time - start_time} seconds")
