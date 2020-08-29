@@ -38,7 +38,7 @@ class LinkedList:
 
         return False
 
-    def reverse_list(self, node, prev):
+    def reverse_list(self, node = None, prev = None):
         # The last node becomes the head
         # The first node becomes the tail
         # a -> b -> c -> d
@@ -53,8 +53,32 @@ class LinkedList:
         previous_node = None
         next_node = current_node.next_node
 
-        # while(next_node):
+        while(next_node):
             # As we are reversing the order
             # a <- b <- c <- d
-            # current node will be prev
-        
+            current_node.next_node = previous_node
+            previous_node = current_node
+            current_node = next_node
+            next_node = current_node.next_node
+
+        current_node.next_node = previous_node
+        self.head = current_node
+        return self.head.value
+
+    def __str__(self):
+        arr = []
+        if (self.head is not None):
+            current_node = self.head
+        while (current_node.next_node):
+            arr.append(current_node.value)
+            current_node = current_node.next_node
+        arr.append(current_node.value)
+        return str(arr)
+
+spongeBob = LinkedList()
+spongeBob.add_to_head('a')
+spongeBob.add_to_head('b')
+spongeBob.add_to_head('c')
+print(spongeBob)
+spongeBob.reverse_list()
+print(spongeBob)
